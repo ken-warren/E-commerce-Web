@@ -1,0 +1,3933 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>My Profile — SneakersLink</title>
+
+    <meta
+      name="description"
+      content="Manage your SneakersLink customer profile."
+    />
+
+    <!-- =========================================================
+         FONT AWESOME
+         ========================================================= -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- =========================================================
+         GOOGLE FONT
+         ========================================================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- =========================================================
+         PREVENT THEME FLASH
+         ========================================================= -->
+
+    <script>
+      (function () {
+        try {
+          const themeKeys = [
+            "sl-theme",
+            "sl_theme",
+          ];
+
+          let savedTheme = null;
+
+          for (const key of themeKeys) {
+            const value =
+              localStorage.getItem(key);
+
+            if (
+              value === "dark" ||
+              value === "light"
+            ) {
+              savedTheme = value;
+              break;
+            }
+          }
+
+          if (savedTheme) {
+            document.documentElement.setAttribute(
+              "data-theme",
+              savedTheme,
+            );
+
+            return;
+          }
+
+          const prefersDark =
+            window.matchMedia &&
+            window.matchMedia(
+              "(prefers-color-scheme: dark)",
+            ).matches;
+
+          document.documentElement.setAttribute(
+            "data-theme",
+            prefersDark
+              ? "dark"
+              : "light",
+          );
+        } catch (error) {
+          document.documentElement.setAttribute(
+            "data-theme",
+            "light",
+          );
+        }
+      })();
+    </script>
+
+    <!-- =========================================================
+         PAGE STYLES
+         ========================================================= -->
+
+    <style>
+      :root {
+        --sl-bg: #f7f7f8;
+        --sl-surface: #ffffff;
+        --sl-surface-soft: #f3f4f6;
+        --sl-text: #111111;
+        --sl-text-secondary: #6b7280;
+        --sl-border: #e5e7eb;
+        --sl-brand: #088178;
+        --sl-brand-dark: #066b63;
+        --sl-brand-light: #e8f6ea;
+        --sl-primary: var(--sl-brand);
+        --sl-primary-text: #ffffff;
+        --sl-danger: #dc2626;
+        --sl-success: #16a34a;
+        --sl-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+        --sl-radius: 20px;
+        --sl-transition: 0.25s ease;
+        --sl-ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      html[data-theme="dark"] {
+        --sl-bg: #0d0f12;
+        --sl-surface: #15181d;
+        --sl-surface-soft: #1d2128;
+        --sl-text: #f5f5f5;
+        --sl-text-secondary: #a5abb5;
+        --sl-border: #2a2f38;
+        --sl-brand: #35d6c4;
+        --sl-brand-dark: #22a897;
+        --sl-brand-light: #113631;
+        --sl-primary: var(--sl-brand);
+        --sl-primary-text: #0d0f12;
+        --sl-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        background: var(--sl-bg);
+        color: var(--sl-text);
+
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+
+        transition:
+          background var(--sl-transition),
+          color var(--sl-transition);
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* =====================================================
+         HEADER
+         ===================================================== */
+
+      .profile-header {
+        width: 100%;
+        height: 76px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 32px;
+
+        background: var(--sl-surface);
+
+        border-bottom: 1px solid var(--sl-border);
+
+        position: sticky;
+        top: 0;
+        z-index: 100;
+
+        transition:
+          background var(--sl-transition),
+          border-color var(--sl-transition);
+      }
+
+      .profile-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+
+        padding: 10px 15px;
+
+        border: 1px solid var(--sl-border);
+        border-radius: 12px;
+
+        background: var(--sl-surface);
+        color: var(--sl-text);
+
+        font-size: 14px;
+        font-weight: 500;
+
+        transition: all var(--sl-transition);
+      }
+
+      .profile-back:hover {
+        background: var(--sl-surface-soft);
+        transform: translateX(-2px);
+      }
+
+      .profile-back i {
+        font-size: 13px;
+      }
+
+      .header-profile-button {
+        width: 44px;
+        height: 44px;
+
+        border: 1px solid var(--sl-border);
+        border-radius: 50%;
+
+        background: var(--sl-surface-soft);
+        color: var(--sl-text);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
+
+        transition: all var(--sl-transition);
+      }
+
+      .header-profile-button:hover {
+        transform: translateY(-1px);
+        border-color: var(--sl-text);
+      }
+
+      .header-profile-button img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+
+      .header-profile-button.has-image img {
+        display: block;
+      }
+
+      .header-profile-button.has-image i {
+        display: none;
+      }
+
+      /* =====================================================
+         MAIN
+         ===================================================== */
+
+      .profile-page {
+        width: 100%;
+        max-width: 1080px;
+
+        margin: 0 auto;
+
+        padding: 45px 24px 70px;
+      }
+
+      .profile-intro {
+        margin-bottom: 30px;
+      }
+
+      .profile-intro h1 {
+        font-size: clamp(28px, 4vw, 38px);
+
+        line-height: 1.15;
+
+        font-weight: 700;
+
+        letter-spacing: -0.8px;
+
+        margin-bottom: 8px;
+      }
+
+      .profile-intro p {
+        color: var(--sl-text-secondary);
+
+        font-size: 14px;
+
+        line-height: 1.6;
+      }
+
+      /* =====================================================
+         CARD
+         ===================================================== */
+
+      .profile-card {
+        background: var(--sl-surface);
+
+        border: 1px solid var(--sl-border);
+
+        border-radius: var(--sl-radius);
+
+        box-shadow: var(--sl-shadow);
+
+        overflow: hidden;
+
+        transition:
+          background var(--sl-transition),
+          border-color var(--sl-transition);
+      }
+
+      /* =====================================================
+         HERO
+         ===================================================== */
+
+      .profile-hero {
+        padding: 32px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 24px;
+
+        border-bottom: 1px solid var(--sl-border);
+      }
+
+      .profile-avatar-wrapper {
+        position: relative;
+
+        flex: 0 0 auto;
+      }
+
+      .profile-avatar {
+        width: 112px;
+        height: 112px;
+
+        border-radius: 50%;
+
+        background: var(--sl-surface-soft);
+
+        border: 1px solid var(--sl-border);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        overflow: hidden;
+
+        color: var(--sl-text-secondary);
+
+        font-size: 38px;
+      }
+
+      .profile-avatar img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        display: none;
+      }
+
+      .profile-avatar.has-image img {
+        display: block;
+      }
+
+      .profile-avatar.has-image i {
+        display: none;
+      }
+
+      .avatar-edit-button {
+        position: absolute;
+
+        right: 2px;
+        bottom: 2px;
+
+        width: 34px;
+        height: 34px;
+
+        border: 3px solid var(--sl-surface);
+
+        border-radius: 50%;
+
+        background: var(--sl-primary);
+
+        color: var(--sl-primary-text);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        transition: transform var(--sl-transition);
+      }
+
+      .avatar-edit-button:hover {
+        transform: scale(1.08);
+      }
+
+      .avatar-edit-button i {
+        font-size: 13px;
+      }
+
+      .profile-summary {
+        min-width: 0;
+      }
+
+      .profile-summary h2 {
+        font-size: 24px;
+
+        font-weight: 700;
+
+        line-height: 1.3;
+
+        margin-bottom: 4px;
+
+        word-break: break-word;
+      }
+
+      .profile-summary p {
+        color: var(--sl-text-secondary);
+
+        font-size: 13px;
+
+        line-height: 1.5;
+
+        word-break: break-word;
+      }
+
+      .profile-summary .profile-status {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 6px;
+
+        margin-top: 10px;
+
+        padding: 5px 10px;
+
+        border-radius: 999px;
+
+        background: var(--sl-surface-soft);
+
+        color: var(--sl-text-secondary);
+
+        font-size: 11px;
+
+        font-weight: 500;
+      }
+
+      .profile-status i {
+        font-size: 7px;
+      }
+
+      /* =====================================================
+         FORM
+         ===================================================== */
+
+      .profile-form {
+        padding: 32px;
+      }
+
+      .section-heading {
+        margin-bottom: 22px;
+      }
+
+      .section-heading h3 {
+        font-size: 18px;
+
+        font-weight: 600;
+
+        margin-bottom: 4px;
+      }
+
+      .section-heading p {
+        color: var(--sl-text-secondary);
+
+        font-size: 12px;
+      }
+
+      .form-grid {
+        display: grid;
+
+        grid-template-columns:
+          repeat(
+            2,
+            minmax(0, 1fr)
+          );
+
+        gap: 20px;
+      }
+
+      .form-group {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 7px;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .form-label {
+        font-size: 12px;
+
+        font-weight: 600;
+
+        color: var(--sl-text);
+      }
+
+      .form-input {
+        width: 100%;
+
+        min-height: 48px;
+
+        padding: 12px 14px;
+
+        border: 1px solid var(--sl-border);
+
+        border-radius: 12px;
+
+        outline: none;
+
+        background: var(--sl-surface);
+
+        color: var(--sl-text);
+
+        font-size: 13px;
+
+        transition: all var(--sl-transition);
+      }
+
+      .form-input::placeholder {
+        color: var(--sl-text-secondary);
+      }
+
+      .form-input:focus {
+        border-color: var(--sl-text);
+
+        box-shadow:
+          0 0 0 3px
+          rgba(128, 128, 128, 0.12);
+      }
+
+      .form-input:disabled {
+        opacity: 0.65;
+
+        cursor: not-allowed;
+
+        background: var(--sl-surface-soft);
+      }
+
+      /* =====================================================
+         ACTIONS
+         ===================================================== */
+
+      .profile-actions {
+        margin-top: 30px;
+
+        padding-top: 24px;
+
+        border-top: 1px solid var(--sl-border);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+      }
+
+      .avatar-actions {
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        flex-wrap: wrap;
+      }
+
+      .button {
+        min-height: 44px;
+
+        padding: 10px 17px;
+
+        border: 1px solid var(--sl-border);
+
+        border-radius: 11px;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        transition: all var(--sl-transition);
+      }
+
+      .button-primary {
+        background: var(--sl-primary);
+
+        color: var(--sl-primary-text);
+
+        border-color: var(--sl-primary);
+      }
+
+      .button-primary:hover {
+        opacity: 0.88;
+
+        transform: translateY(-1px);
+      }
+
+      .button-secondary {
+        background: var(--sl-surface);
+
+        color: var(--sl-text);
+      }
+
+      .button-secondary:hover {
+        background: var(--sl-surface-soft);
+      }
+
+      .button-danger {
+        background: transparent;
+
+        color: var(--sl-danger);
+
+        border-color:
+          rgba(220, 38, 38, 0.25);
+      }
+
+      .button-danger:hover {
+        background:
+          rgba(220, 38, 38, 0.08);
+      }
+
+      .button:disabled {
+        opacity: 0.55;
+
+        cursor: not-allowed;
+
+        transform: none;
+      }
+
+      /* =====================================================
+         MESSAGE
+         ===================================================== */
+
+      .profile-message {
+        display: none;
+
+        margin-bottom: 20px;
+
+        padding: 12px 14px;
+
+        border-radius: 12px;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+      }
+
+      .profile-message.show {
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+      }
+
+      .profile-message.success {
+        background:
+          rgba(22, 163, 74, 0.1);
+
+        color: var(--sl-success);
+      }
+
+      .profile-message.error {
+        background:
+          rgba(220, 38, 38, 0.1);
+
+        color: var(--sl-danger);
+      }
+
+      /* =====================================================
+         LOADING
+         ===================================================== */
+
+      .profile-loading {
+        min-height: 400px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 14px;
+
+        color: var(--sl-text-secondary);
+
+        font-size: 13px;
+      }
+
+      .loading-spinner {
+        width: 34px;
+
+        height: 34px;
+
+        border: 3px solid var(--sl-border);
+
+        border-top-color: var(--sl-text);
+
+        border-radius: 50%;
+
+        animation:
+          profileSpin
+          0.8s
+          linear
+          infinite;
+      }
+
+      @keyframes profileSpin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* =====================================================
+         ERROR
+         ===================================================== */
+
+      .profile-error {
+        display: none;
+
+        padding: 40px 25px;
+
+        text-align: center;
+      }
+
+      .profile-error.show {
+        display: block;
+      }
+
+      .profile-error-icon {
+        width: 58px;
+
+        height: 58px;
+
+        margin: 0 auto 16px;
+
+        border-radius: 50%;
+
+        background:
+          rgba(220, 38, 38, 0.1);
+
+        color: var(--sl-danger);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 21px;
+      }
+
+      .profile-error h2 {
+        font-size: 20px;
+
+        margin-bottom: 7px;
+      }
+
+      .profile-error p {
+        max-width: 520px;
+
+        margin: 0 auto 20px;
+
+        color: var(--sl-text-secondary);
+
+        font-size: 13px;
+
+        line-height: 1.6;
+      }
+
+      #avatarFileInput {
+        display: none;
+      }
+
+      .profile-footer {
+        text-align: center;
+
+        color: var(--sl-text-secondary);
+
+        font-size: 11px;
+
+        padding: 20px;
+      }
+
+      /* =====================================================
+         MOBILE
+         ===================================================== */
+
+      @media (max-width: 700px) {
+        .profile-header {
+          height: 68px;
+
+          padding: 0 16px;
+        }
+
+        .profile-back {
+          padding: 9px 12px;
+
+          font-size: 12px;
+        }
+
+        .header-profile-button {
+          width: 40px;
+
+          height: 40px;
+        }
+
+        .profile-page {
+          padding: 28px 14px 50px;
+        }
+
+        .profile-intro {
+          margin-bottom: 20px;
+        }
+
+        .profile-intro h1 {
+          font-size: 27px;
+        }
+
+        .profile-hero {
+          padding: 24px 20px;
+
+          flex-direction: column;
+
+          text-align: center;
+        }
+
+        .profile-avatar {
+          width: 100px;
+
+          height: 100px;
+        }
+
+        .profile-summary h2 {
+          font-size: 20px;
+        }
+
+        .profile-form {
+          padding: 24px 20px;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+
+          gap: 16px;
+        }
+
+        .form-group.full-width {
+          grid-column: auto;
+        }
+
+        .profile-actions {
+          flex-direction: column;
+
+          align-items: stretch;
+        }
+
+        .avatar-actions {
+          width: 100%;
+        }
+
+        .avatar-actions .button {
+          flex: 1;
+        }
+
+        .save-button {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .profile-page {
+          padding-left: 10px;
+
+          padding-right: 10px;
+        }
+
+        .profile-form {
+          padding: 20px 15px;
+        }
+
+        .profile-hero {
+          padding: 22px 15px;
+        }
+
+        .profile-back span {
+          display: none;
+        }
+
+        .profile-back {
+          width: 40px;
+
+          height: 40px;
+
+          justify-content: center;
+
+          padding: 0;
+        }
+      }
+
+      /* =====================================================
+         TABS
+         ===================================================== */
+
+      .profile-tabs {
+        display: flex;
+        gap: 8px;
+
+        margin-bottom: 20px;
+      }
+
+      .profile-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        padding: 11px 18px;
+
+        border: 1px solid var(--sl-border);
+        border-radius: 12px;
+
+        background: var(--sl-surface);
+        color: var(--sl-text-secondary);
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition: background 0.2s var(--sl-ease), color 0.2s var(--sl-ease), border-color 0.2s var(--sl-ease), transform 0.2s var(--sl-ease);
+      }
+
+      .profile-tab:hover {
+        background: var(--sl-surface-soft);
+        transform: translateY(-1px);
+      }
+
+      .profile-tab.active {
+        background: var(--sl-primary);
+        color: var(--sl-primary-text);
+        border-color: var(--sl-primary);
+      }
+
+      .profile-tab.active:hover {
+        transform: none;
+      }
+
+      /* =====================================================
+         ORDERS DASHBOARD
+         ===================================================== */
+
+      @keyframes slRiseIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .orders-dashboard {
+        padding: 32px;
+
+        animation: slRiseIn 0.4s var(--sl-ease);
+      }
+
+      .orders-dashboard-header h2 {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+
+      .orders-dashboard-header p {
+        color: var(--sl-text-secondary);
+        font-size: 14px;
+      }
+
+      .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+
+        margin-top: 24px;
+      }
+
+      .kpi-card {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        padding: 18px 18px 18px 20px;
+
+        border: 1px solid var(--sl-border);
+        border-left: 3px solid var(--sl-brand);
+        border-radius: 14px;
+
+        background: var(--sl-surface-soft);
+
+        animation: slRiseIn 0.45s var(--sl-ease) backwards;
+
+        transition: transform 0.25s var(--sl-ease), box-shadow 0.25s var(--sl-ease);
+      }
+
+      .kpi-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(8, 129, 120, 0.12);
+      }
+
+      .kpi-card:nth-child(1) { animation-delay: 0.03s; }
+      .kpi-card:nth-child(2) { animation-delay: 0.08s; }
+      .kpi-card:nth-child(3) { animation-delay: 0.13s; }
+      .kpi-card:nth-child(4) { animation-delay: 0.18s; }
+
+      .kpi-label {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--sl-text-secondary);
+      }
+
+      .kpi-value {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--sl-brand);
+      }
+
+      .chart-card {
+        margin-top: 24px;
+
+        padding: 20px;
+
+        border: 1px solid var(--sl-border);
+        border-radius: 14px;
+
+        animation: slRiseIn 0.5s var(--sl-ease) 0.1s backwards;
+      }
+
+      .chart-card-header h3 {
+        font-size: 15px;
+        margin-bottom: 14px;
+      }
+
+      .revenue-chart {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+
+        height: 160px;
+      }
+
+      .revenue-bar-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+
+        height: 100%;
+        min-width: 0;
+      }
+
+      .revenue-bar {
+        width: 100%;
+        max-width: 26px;
+
+        background: var(--sl-brand);
+        border-radius: 4px 4px 0 0;
+
+        min-height: 2px;
+
+        transition: background 0.25s var(--sl-ease), height 0.4s var(--sl-ease), transform 0.2s var(--sl-ease);
+      }
+
+      .revenue-bar-col:hover .revenue-bar {
+        background: var(--sl-brand-dark);
+        transform: scaleX(1.15);
+      }
+
+      .revenue-bar-label {
+        font-size: 10px;
+        color: var(--sl-text-secondary);
+
+        white-space: nowrap;
+      }
+
+      .orders-list-section {
+        margin-top: 28px;
+      }
+
+      .orders-list-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+
+        margin-bottom: 12px;
+      }
+
+      .orders-list-header h3 {
+        font-size: 15px;
+      }
+
+      .orders-count {
+        font-size: 12px;
+        color: var(--sl-text-secondary);
+      }
+
+      .orders-dash-loading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        padding: 24px 0;
+
+        color: var(--sl-text-secondary);
+        font-size: 14px;
+      }
+
+      .orders-empty {
+        padding: 24px 0;
+
+        color: var(--sl-text-secondary);
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .orders-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .order-row {
+        padding: 16px;
+
+        border: 1px solid var(--sl-border);
+        border-radius: 12px;
+
+        animation: slRiseIn 0.35s var(--sl-ease) backwards;
+
+        transition: transform 0.2s var(--sl-ease), box-shadow 0.2s var(--sl-ease), border-color 0.2s var(--sl-ease);
+      }
+
+      .order-row:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--sl-shadow);
+        border-color: var(--sl-brand);
+      }
+
+      .order-row:nth-child(-n+8) {
+        animation-delay: calc(var(--sl-row-index, 0) * 0.04s);
+      }
+
+      .order-row-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+
+        margin-bottom: 8px;
+      }
+
+      .order-row-id {
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .order-row-date {
+        font-size: 12px;
+        color: var(--sl-text-secondary);
+        margin-top: 2px;
+      }
+
+      .order-row-total {
+        font-weight: 700;
+        white-space: nowrap;
+        color: var(--sl-brand);
+      }
+
+      .order-row-items {
+        font-size: 13px;
+        color: var(--sl-text-secondary);
+
+        margin-bottom: 12px;
+      }
+
+      .order-row-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        flex-wrap: wrap;
+      }
+
+      .order-status-select {
+        padding: 8px 14px;
+
+        border: 1px solid var(--sl-border);
+        border-radius: 999px;
+
+        background: var(--sl-surface);
+        color: var(--sl-text);
+
+        font-size: 12.5px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: border-color 0.2s var(--sl-ease), color 0.2s var(--sl-ease);
+      }
+
+      /*
+       * Same status -> color mapping as admin.html, so an
+       * order looks the same whether it's viewed there or
+       * here.
+       */
+      .order-status-select.status-badge--placed { color: #999; }
+      .order-status-select.status-badge--confirmed { color: #2f6fed; }
+      .order-status-select.status-badge--packed { color: #a9720c; }
+      .order-status-select.status-badge--out { color: #d2691e; }
+      .order-status-select.status-badge--delivered { color: var(--sl-brand); }
+
+      .order-row-updated {
+        font-size: 11px;
+        color: var(--sl-text-secondary);
+      }
+
+      @media (max-width: 700px) {
+        .kpi-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .orders-dashboard {
+          padding: 22px 16px;
+        }
+
+        .profile-tab span {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .orders-dashboard,
+        .kpi-card,
+        .chart-card,
+        .order-row {
+          animation: none;
+        }
+
+        .kpi-card,
+        .order-row {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
+    <header class="profile-header">
+      <button
+        type="button"
+        class="profile-back"
+        id="backButton"
+        aria-label="Go back"
+      >
+        <i
+          class="fas fa-arrow-left"
+          aria-hidden="true"
+        ></i>
+
+        <span>Back</span>
+      </button>
+
+      <button
+        type="button"
+        class="header-profile-button"
+        id="headerProfileButton"
+        aria-label="Profile"
+      >
+        <i
+          class="fas fa-user"
+          aria-hidden="true"
+        ></i>
+
+        <img
+          id="headerProfileImage"
+          src=""
+          alt=""
+        />
+      </button>
+    </header>
+
+
+    <!-- =========================================================
+         MAIN
+         ========================================================= -->
+
+    <main class="profile-page">
+      <div class="profile-intro">
+        <h1>My Profile</h1>
+
+        <p>
+          Manage your personal information
+          and profile photo.
+        </p>
+      </div>
+
+      <!-- =====================================================
+           TABS
+           Hidden entirely until we know whether this account is
+           an admin. Regular customers never see a tab bar at
+           all — the page behaves exactly as it always has.
+           ===================================================== -->
+
+      <div
+        class="profile-tabs"
+        id="profileTabs"
+        role="tablist"
+        hidden
+      >
+        <button
+          type="button"
+          class="profile-tab active"
+          id="tabBtnProfile"
+          role="tab"
+          aria-selected="true"
+          aria-controls="tabPanelProfile"
+        >
+          <i class="fas fa-user" aria-hidden="true"></i>
+          Profile
+        </button>
+
+        <button
+          type="button"
+          class="profile-tab"
+          id="tabBtnOrders"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tabPanelOrders"
+          hidden
+        >
+          <i class="fas fa-receipt" aria-hidden="true"></i>
+          Orders
+        </button>
+      </div>
+
+      <div
+        id="tabPanelProfile"
+        role="tabpanel"
+        aria-labelledby="tabBtnProfile"
+      >
+
+      <section class="profile-card">
+
+        <!-- =====================================================
+             LOADING
+             ===================================================== -->
+
+        <div
+          class="profile-loading"
+          id="profileLoading"
+        >
+          <div
+            class="loading-spinner"
+            aria-hidden="true"
+          ></div>
+
+          <span id="loadingText">
+            Loading your profile...
+          </span>
+        </div>
+
+
+        <!-- =====================================================
+             ERROR
+             ===================================================== -->
+
+        <div
+          class="profile-error"
+          id="profileError"
+        >
+          <div class="profile-error-icon">
+            <i
+              class="fas fa-circle-exclamation"
+              aria-hidden="true"
+            ></i>
+          </div>
+
+          <h2>
+            Unable to load profile
+          </h2>
+
+          <p id="profileErrorText">
+            We couldn't load your profile.
+          </p>
+
+          <a
+            href="login.html?mode=login"
+            class="button button-primary"
+          >
+            <i
+              class="fas fa-right-to-bracket"
+              aria-hidden="true"
+            ></i>
+
+            Sign In
+          </a>
+        </div>
+
+
+        <!-- =====================================================
+             PROFILE CONTENT
+             ===================================================== -->
+
+        <div
+          id="profileContent"
+          hidden
+        >
+
+          <div class="profile-hero">
+
+            <!-- Avatar -->
+
+            <div class="profile-avatar-wrapper">
+              <div
+                class="profile-avatar"
+                id="profileAvatar"
+              >
+                <i
+                  class="fas fa-user"
+                  aria-hidden="true"
+                ></i>
+
+                <img
+                  id="profileAvatarImage"
+                  src=""
+                  alt="Profile photo"
+                />
+              </div>
+
+              <button
+                type="button"
+                class="avatar-edit-button"
+                id="avatarEditButton"
+                aria-label="Change profile photo"
+                title="Change profile photo"
+              >
+                <i
+                  class="fas fa-camera"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            </div>
+
+
+            <!-- Summary -->
+
+            <div class="profile-summary">
+              <h2 id="profileName">
+                Profile
+              </h2>
+
+              <p id="profileEmail">
+                —
+              </p>
+
+              <span
+                class="profile-status"
+                id="profileStatus"
+              >
+                <i
+                  class="fas fa-circle"
+                  aria-hidden="true"
+                ></i>
+
+                Account active
+              </span>
+            </div>
+          </div>
+
+
+          <!-- ===================================================
+               FORM
+               =================================================== -->
+
+          <form
+            class="profile-form"
+            id="profileForm"
+            novalidate
+          >
+
+            <div
+              class="profile-message"
+              id="profileMessage"
+              role="status"
+              aria-live="polite"
+            >
+              <i
+                class="fas fa-circle-check"
+                aria-hidden="true"
+              ></i>
+
+              <span
+                id="profileMessageText"
+              ></span>
+            </div>
+
+
+            <div class="section-heading">
+              <h3>
+                Personal Information
+              </h3>
+
+              <p>
+                Keep your customer details up to date.
+              </p>
+            </div>
+
+
+            <div class="form-grid">
+
+              <!-- Name -->
+
+              <div class="form-group">
+                <label
+                  class="form-label"
+                  for="displayName"
+                >
+                  Full Name
+                </label>
+
+                <input
+                  type="text"
+                  id="displayName"
+                  name="displayName"
+                  class="form-input"
+                  placeholder="Enter your full name"
+                  autocomplete="name"
+                />
+              </div>
+
+
+              <!-- Email -->
+
+              <div class="form-group">
+                <label
+                  class="form-label"
+                  for="email"
+                >
+                  Email Address
+                </label>
+
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="Email address"
+                  autocomplete="email"
+                  disabled
+                />
+              </div>
+
+
+              <!-- Phone -->
+
+              <div class="form-group">
+                <label
+                  class="form-label"
+                  for="phone"
+                >
+                  Phone Number
+                </label>
+
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="form-input"
+                  placeholder="Enter your phone number"
+                  autocomplete="tel"
+                />
+              </div>
+
+
+              <!-- Country -->
+
+              <div class="form-group">
+                <label
+                  class="form-label"
+                  for="country"
+                >
+                  Country
+                </label>
+
+                <input
+                  type="text"
+                  id="country"
+                  name="country"
+                  class="form-input"
+                  placeholder="Enter your country"
+                  autocomplete="country-name"
+                />
+              </div>
+
+
+              <!-- Address -->
+
+              <div class="form-group full-width">
+                <label
+                  class="form-label"
+                  for="address"
+                >
+                  Address
+                </label>
+
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  class="form-input"
+                  placeholder="Enter your address"
+                  autocomplete="street-address"
+                />
+              </div>
+
+
+              <!-- City -->
+
+              <div class="form-group">
+                <label
+                  class="form-label"
+                  for="city"
+                >
+                  City
+                </label>
+
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  class="form-input"
+                  placeholder="Enter your city"
+                  autocomplete="address-level2"
+                />
+              </div>
+
+
+              <!-- Postal Code -->
+
+              <div class="form-group">
+                <label
+                  class="form-label"
+                  for="postalCode"
+                >
+                  Postal Code
+                </label>
+
+                <input
+                  type="text"
+                  id="postalCode"
+                  name="postalCode"
+                  class="form-input"
+                  placeholder="Enter postal code"
+                  autocomplete="postal-code"
+                />
+              </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACTIONS
+                 ================================================= -->
+
+            <div class="profile-actions">
+
+              <div class="avatar-actions">
+
+                <button
+                  type="button"
+                  class="button button-secondary"
+                  id="changePhotoButton"
+                >
+                  <i
+                    class="fas fa-camera"
+                    aria-hidden="true"
+                  ></i>
+
+                  Change Photo
+                </button>
+
+
+                <button
+                  type="button"
+                  class="button button-danger"
+                  id="removePhotoButton"
+                  style="display: none"
+                >
+                  <i
+                    class="fas fa-trash"
+                    aria-hidden="true"
+                  ></i>
+
+                  Remove
+                </button>
+
+              </div>
+
+
+              <button
+                type="submit"
+                class="button button-primary save-button"
+                id="saveProfileButton"
+              >
+                <i
+                  class="fas fa-check"
+                  aria-hidden="true"
+                ></i>
+
+                Save Changes
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </section>
+
+
+      <div class="profile-footer">
+        SneakersLink
+      </div>
+
+      </div><!-- /#tabPanelProfile -->
+
+
+      <!-- =====================================================
+           ORDERS (admin only)
+           Hidden by default; only ever unhidden by JS after
+           isAdminUser() confirms this account is on the
+           admins/{uid} allow-list. No order data is fetched
+           until this tab is actually opened.
+           ===================================================== -->
+
+      <div
+        id="tabPanelOrders"
+        role="tabpanel"
+        aria-labelledby="tabBtnOrders"
+        hidden
+      >
+
+        <section class="profile-card orders-dashboard">
+
+          <div class="orders-dashboard-header">
+            <h2>Orders</h2>
+            <p>Manage customer orders and track sales performance.</p>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-label">Total Revenue</span>
+              <span class="kpi-value" id="kpiRevenue">—</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Orders</span>
+              <span class="kpi-value" id="kpiOrders">—</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Avg. Order Value</span>
+              <span class="kpi-value" id="kpiAov">—</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Pending</span>
+              <span class="kpi-value" id="kpiPending">—</span>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3>Revenue, last 14 days</h3>
+            </div>
+            <div
+              id="revenueChart"
+              class="revenue-chart"
+              role="img"
+              aria-label="Bar chart of revenue for the last 14 days"
+            ></div>
+          </div>
+
+          <div class="orders-list-section">
+            <div class="orders-list-header">
+              <h3>All Orders</h3>
+              <span id="ordersShowingCount" class="orders-count"></span>
+            </div>
+
+            <div id="ordersDashLoading" class="orders-dash-loading">
+              <div class="loading-spinner" aria-hidden="true"></div>
+              <span>Loading orders...</span>
+            </div>
+
+            <div id="ordersDashEmpty" class="orders-empty" hidden>
+              No orders yet.
+            </div>
+
+            <div id="ordersDashList" class="orders-list"></div>
+          </div>
+
+        </section>
+
+      </div><!-- /#tabPanelOrders -->
+
+    </main>
+
+
+    <!-- =========================================================
+         HIDDEN FILE INPUT
+         ========================================================= -->
+
+    <input
+      type="file"
+      id="avatarFileInput"
+      aria-label="Upload profile photo"
+      accept="image/jpeg,image/png,image/webp,image/gif"
+    />
+
+
+    <!-- =========================================================
+         FIREBASE PROFILE ENGINE
+         ========================================================= -->
+
+    <script
+      type="module"
+      src="./firebase-profile.js"
+    ></script>
+
+    <!--
+      Loaded for every user, not just admins — the isAdminUser()
+      check below determines whether the Orders tab is ever
+      shown. Regular customers get a `false` result and never
+      see it; this module's other exports aren't used on this
+      page for non-admins.
+    -->
+    <script
+      type="module"
+      src="./firebase-orders.js"
+    ></script>
+
+
+    <!-- =========================================================
+         PROFILE PAGE ENGINE
+         ========================================================= -->
+
+    <script>
+      (() => {
+        "use strict";
+
+
+        /* =====================================================
+           ELEMENTS
+           ===================================================== */
+
+        const loading =
+          document.getElementById(
+            "profileLoading",
+          );
+
+        const loadingText =
+          document.getElementById(
+            "loadingText",
+          );
+
+        const errorState =
+          document.getElementById(
+            "profileError",
+          );
+
+        const errorText =
+          document.getElementById(
+            "profileErrorText",
+          );
+
+        const content =
+          document.getElementById(
+            "profileContent",
+          );
+
+        const profileForm =
+          document.getElementById(
+            "profileForm",
+          );
+
+        const profileName =
+          document.getElementById(
+            "profileName",
+          );
+
+        const profileEmail =
+          document.getElementById(
+            "profileEmail",
+          );
+
+        const emailInput =
+          document.getElementById(
+            "email",
+          );
+
+        const displayNameInput =
+          document.getElementById(
+            "displayName",
+          );
+
+        const phoneInput =
+          document.getElementById(
+            "phone",
+          );
+
+        const addressInput =
+          document.getElementById(
+            "address",
+          );
+
+        const cityInput =
+          document.getElementById(
+            "city",
+          );
+
+        const postalCodeInput =
+          document.getElementById(
+            "postalCode",
+          );
+
+        const countryInput =
+          document.getElementById(
+            "country",
+          );
+
+        const profileAvatar =
+          document.getElementById(
+            "profileAvatar",
+          );
+
+        const profileAvatarImage =
+          document.getElementById(
+            "profileAvatarImage",
+          );
+
+        const headerProfileButton =
+          document.getElementById(
+            "headerProfileButton",
+          );
+
+        const headerProfileImage =
+          document.getElementById(
+            "headerProfileImage",
+          );
+
+        const avatarFileInput =
+          document.getElementById(
+            "avatarFileInput",
+          );
+
+        const avatarEditButton =
+          document.getElementById(
+            "avatarEditButton",
+          );
+
+        const changePhotoButton =
+          document.getElementById(
+            "changePhotoButton",
+          );
+
+        const removePhotoButton =
+          document.getElementById(
+            "removePhotoButton",
+          );
+
+        const saveButton =
+          document.getElementById(
+            "saveProfileButton",
+          );
+
+        const message =
+          document.getElementById(
+            "profileMessage",
+          );
+
+        const messageText =
+          document.getElementById(
+            "profileMessageText",
+          );
+
+        const backButton =
+          document.getElementById(
+            "backButton",
+          );
+
+
+        /* =====================================================
+           STATE
+           ===================================================== */
+
+        let currentProfile = null;
+
+        let profileLoaded = false;
+
+        let uploadInProgress = false;
+
+        let messageTimeout = null;
+
+
+        /* =====================================================
+           THEME
+           ===================================================== */
+
+        function getSavedTheme() {
+          try {
+            const preferred =
+              localStorage.getItem(
+                "sl-theme",
+              );
+
+            if (
+              preferred === "dark" ||
+              preferred === "light"
+            ) {
+              return preferred;
+            }
+
+            const legacy =
+              localStorage.getItem(
+                "sl_theme",
+              );
+
+            if (
+              legacy === "dark" ||
+              legacy === "light"
+            ) {
+              return legacy;
+            }
+          } catch (error) {
+            console.warn(
+              "Unable to read saved theme.",
+              error,
+            );
+          }
+
+          return null;
+        }
+
+
+        function applyTheme(theme) {
+          if (
+            theme !== "dark" &&
+            theme !== "light"
+          ) {
+            return;
+          }
+
+          document.documentElement.setAttribute(
+            "data-theme",
+            theme,
+          );
+        }
+
+
+        function initialiseTheme() {
+          const savedTheme =
+            getSavedTheme();
+
+          if (savedTheme) {
+            applyTheme(savedTheme);
+            return;
+          }
+
+          const prefersDark =
+            window.matchMedia &&
+            window.matchMedia(
+              "(prefers-color-scheme: dark)",
+            ).matches;
+
+          applyTheme(
+            prefersDark
+              ? "dark"
+              : "light",
+          );
+        }
+
+
+        initialiseTheme();
+
+
+        window.addEventListener(
+          "storage",
+          (event) => {
+            if (
+              event.key === "sl-theme" ||
+              event.key === "sl_theme"
+            ) {
+              applyTheme(
+                event.newValue,
+              );
+            }
+          },
+        );
+
+
+        window.addEventListener(
+          "sl:themechange",
+          (event) => {
+            const theme =
+              event?.detail?.theme;
+
+            if (
+              theme === "dark" ||
+              theme === "light"
+            ) {
+              applyTheme(theme);
+            }
+          },
+        );
+
+
+        window.addEventListener(
+          "themechange",
+          (event) => {
+            const theme =
+              event?.detail?.theme ||
+              event?.detail;
+
+            if (
+              theme === "dark" ||
+              theme === "light"
+            ) {
+              applyTheme(theme);
+            }
+          },
+        );
+
+
+        /* =====================================================
+           UI STATE
+           ===================================================== */
+
+        function showLoading(
+          text = "Loading your profile...",
+        ) {
+          loading.hidden = false;
+
+          loading.style.display = "flex";
+
+          loadingText.textContent = text;
+
+          errorState.classList.remove(
+            "show",
+          );
+
+          errorState.style.display = "none";
+
+          content.hidden = true;
+
+          content.style.display = "none";
+        }
+
+
+        function showContent() {
+          /*
+           * Kill the loading state completely.
+           */
+          loading.hidden = true;
+
+          loading.style.display = "none";
+
+          /*
+           * Hide error.
+           */
+          errorState.classList.remove(
+            "show",
+          );
+
+          errorState.style.display = "none";
+
+          /*
+           * Show profile.
+           */
+          content.hidden = false;
+
+          content.style.display = "block";
+
+          profileLoaded = true;
+        }
+
+
+        function showError(error) {
+          console.error(
+            "SneakersLink profile error:",
+            error,
+          );
+
+          loading.hidden = true;
+
+          loading.style.display = "none";
+
+          content.hidden = true;
+
+          content.style.display = "none";
+
+          errorState.classList.add(
+            "show",
+          );
+
+          errorState.style.display =
+            "block";
+
+          let text =
+            "We couldn't load your profile. Please try again.";
+
+          if (
+            error &&
+            error.message
+          ) {
+            text = error.message;
+          }
+
+          errorText.textContent = text;
+        }
+
+
+        function showMessage(
+          text,
+          type = "success",
+        ) {
+          message.className =
+            "profile-message show " +
+            type;
+
+          messageText.textContent =
+            text;
+
+          const icon =
+            message.querySelector("i");
+
+          if (type === "error") {
+            icon.className =
+              "fas fa-circle-exclamation";
+          } else {
+            icon.className =
+              "fas fa-circle-check";
+          }
+
+          if (messageTimeout) {
+            clearTimeout(
+              messageTimeout,
+            );
+          }
+
+          messageTimeout = setTimeout(
+            () => {
+              message.className =
+                "profile-message";
+
+              messageTimeout = null;
+            },
+            4500,
+          );
+        }
+
+
+        /* =====================================================
+           TIMEOUT
+           ===================================================== */
+
+        function withTimeout(
+          promise,
+          milliseconds,
+          timeoutMessage,
+        ) {
+          let timeoutId;
+
+          const timeoutPromise =
+            new Promise(
+              (_, reject) => {
+                timeoutId = setTimeout(
+                  () => {
+                    reject(
+                      new Error(
+                        timeoutMessage,
+                      ),
+                    );
+                  },
+                  milliseconds,
+                );
+              },
+            );
+
+          return Promise.race([
+            promise.finally(() => {
+              clearTimeout(
+                timeoutId,
+              );
+            }),
+
+            timeoutPromise,
+          ]);
+        }
+
+
+        /* =====================================================
+           BUTTON LOADING
+           ===================================================== */
+
+        function setButtonLoading(
+          button,
+          loadingState,
+          loadingTextValue,
+        ) {
+          if (!button) {
+            return;
+          }
+
+          if (loadingState) {
+            if (
+              !button.dataset
+                .originalText
+            ) {
+              button.dataset.originalText =
+                button.innerHTML;
+            }
+
+            button.disabled = true;
+
+            button.innerHTML = `
+              <i class="fas fa-spinner fa-spin"></i>
+              ${loadingTextValue}
+            `;
+          } else {
+            button.disabled = false;
+
+            if (
+              button.dataset
+                .originalText
+            ) {
+              button.innerHTML =
+                button.dataset.originalText;
+
+              delete button.dataset
+                .originalText;
+            }
+          }
+        }
+
+
+        /* =====================================================
+           AVATAR
+           ===================================================== */
+
+        function setAvatar(photoURL) {
+          const validURL =
+            typeof photoURL ===
+              "string" &&
+            photoURL.trim() !== "";
+
+          if (validURL) {
+            profileAvatarImage.src =
+              photoURL;
+
+            profileAvatarImage.alt =
+              "Profile photo";
+
+            profileAvatar.classList.add(
+              "has-image",
+            );
+
+            headerProfileImage.src =
+              photoURL;
+
+            headerProfileImage.alt =
+              "Profile photo";
+
+            headerProfileButton.classList.add(
+              "has-image",
+            );
+
+            removePhotoButton.style.display =
+              "inline-flex";
+          } else {
+            profileAvatarImage.removeAttribute(
+              "src",
+            );
+
+            profileAvatar.classList.remove(
+              "has-image",
+            );
+
+            headerProfileImage.removeAttribute(
+              "src",
+            );
+
+            headerProfileButton.classList.remove(
+              "has-image",
+            );
+
+            removePhotoButton.style.display =
+              "none";
+          }
+        }
+
+
+        /* =====================================================
+           POPULATE PROFILE
+           ===================================================== */
+
+        function populateProfile(
+          profile,
+        ) {
+          currentProfile = profile;
+
+          const name =
+            profile?.displayName ||
+            "Profile";
+
+          const email =
+            profile?.email ||
+            "No email available";
+
+          profileName.textContent =
+            name;
+
+          profileEmail.textContent =
+            email;
+
+          displayNameInput.value =
+            profile?.displayName ||
+            "";
+
+          emailInput.value =
+            profile?.email ||
+            "";
+
+          phoneInput.value =
+            profile?.phone ||
+            "";
+
+          addressInput.value =
+            profile?.address ||
+            "";
+
+          cityInput.value =
+            profile?.city ||
+            "";
+
+          postalCodeInput.value =
+            profile?.postalCode ||
+            "";
+
+          countryInput.value =
+            profile?.country ||
+            "";
+
+          setAvatar(
+            profile?.photoURL || "",
+          );
+        }
+
+
+        /* =====================================================
+           WAIT FOR FIREBASE PROFILE ENGINE
+           ===================================================== */
+
+        function waitForProfileEngine() {
+          return new Promise(
+            (resolve, reject) => {
+              /*
+               * IMPORTANT:
+               * Because firebase-profile.js is a module,
+               * it can execute before or after this
+               * script depending on browser timing.
+               *
+               * First check immediately.
+               */
+
+              if (
+                window.SLProfile
+              ) {
+                resolve(
+                  window.SLProfile,
+                );
+
+                return;
+              }
+
+              let finished = false;
+
+              let timeoutId = null;
+
+              const cleanup =
+                () => {
+                  window.removeEventListener(
+                    "slprofile:ready",
+                    readyHandler,
+                  );
+
+                  if (timeoutId) {
+                    clearTimeout(
+                      timeoutId,
+                    );
+                  }
+                };
+
+              const finish =
+                (api) => {
+                  if (finished) {
+                    return;
+                  }
+
+                  finished = true;
+
+                  cleanup();
+
+                  if (api) {
+                    resolve(api);
+                  } else {
+                    reject(
+                      new Error(
+                        "Firebase profile engine initialized without exposing the profile API.",
+                      ),
+                    );
+                  }
+                };
+
+              const readyHandler =
+                () => {
+                  finish(
+                    window.SLProfile,
+                  );
+                };
+
+              window.addEventListener(
+                "slprofile:ready",
+                readyHandler,
+              );
+
+              /*
+               * Hard stop.
+               */
+              timeoutId = setTimeout(
+                () => {
+                  finish(
+                    window.SLProfile,
+                  );
+
+                  if (
+                    !window.SLProfile
+                  ) {
+                    reject(
+                      new Error(
+                        "Firebase profile engine did not load. Check firebase-profile.js and firebase-config.js.",
+                      ),
+                    );
+                  }
+                },
+                10000,
+              );
+            },
+          );
+        }
+
+
+        /* =====================================================
+           WAIT FOR AUTHENTICATED USER
+           ===================================================== */
+
+        function waitForAuthenticatedUser() {
+          return new Promise(
+            (resolve) => {
+              if (
+                !window.SLProfile ||
+                typeof window
+                  .SLProfile
+                  .onProfileAuthChange !==
+                  "function"
+              ) {
+                resolve(null);
+
+                return;
+              }
+
+              /*
+               * CRITICAL FIX:
+               *
+               * Firebase may have already restored
+               * the authenticated session before
+               * this function runs.
+               *
+               * Use currentUser immediately.
+               */
+
+              const existingUser =
+                window.SLProfile.getCurrentUser();
+
+              if (existingUser) {
+                resolve(
+                  existingUser,
+                );
+
+                return;
+              }
+
+              let finished = false;
+
+              let unsubscribe =
+                null;
+
+              let timeoutId =
+                null;
+
+              const finish =
+                (user) => {
+                  if (finished) {
+                    return;
+                  }
+
+                  finished = true;
+
+                  if (timeoutId) {
+                    clearTimeout(
+                      timeoutId,
+                    );
+                  }
+
+                  if (
+                    typeof unsubscribe ===
+                    "function"
+                  ) {
+                    try {
+                      unsubscribe();
+                    } catch (
+                      error
+                    ) {
+                      console.warn(
+                        "Unable to unsubscribe from auth listener.",
+                        error,
+                      );
+                    }
+                  }
+
+                  resolve(
+                    user || null,
+                  );
+                };
+
+
+              /*
+               * Firebase gets a limited amount of time
+               * to restore authentication.
+               *
+               * This prevents infinite loading.
+               */
+
+              timeoutId =
+                setTimeout(
+                  () => {
+                    const currentUser =
+                      window
+                        .SLProfile
+                        .getCurrentUser();
+
+                    finish(
+                      currentUser,
+                    );
+                  },
+                  8000,
+                );
+
+
+              try {
+                unsubscribe =
+                  window
+                    .SLProfile
+                    .onProfileAuthChange(
+                      (user) => {
+                        if (user) {
+                          finish(user);
+                        }
+                      },
+                    );
+              } catch (
+                error
+              ) {
+                console.error(
+                  "Auth listener error:",
+                  error,
+                );
+
+                finish(
+                  window
+                    .SLProfile
+                    .getCurrentUser(),
+                );
+              }
+            },
+          );
+        }
+
+
+        /* =====================================================
+           LOAD PROFILE
+           ===================================================== */
+
+        async function loadProfile() {
+          showLoading(
+            "Checking your account...",
+          );
+
+          try {
+            /*
+             * Wait for profile engine.
+             */
+
+            const profileAPI =
+              await waitForProfileEngine();
+
+            if (!profileAPI) {
+              throw new Error(
+                "The Firebase profile engine could not be loaded.",
+              );
+            }
+
+
+            /*
+             * Authentication.
+             */
+
+            showLoading(
+              "Checking your account...",
+            );
+
+            const user =
+              await waitForAuthenticatedUser();
+
+
+            /*
+             * Not authenticated.
+             */
+
+            if (!user) {
+              window.location.href =
+                "login.html?mode=login";
+
+              return;
+            }
+
+
+            /*
+             * Admin Orders tab.
+             *
+             * Deliberately NOT awaited — this must never
+             * block or fail the profile page for a regular
+             * customer. It resolves to false/no-op for
+             * anyone not on the admins/{uid} allow-list, and
+             * initAdminOrdersTab() has its own try/catch so
+             * a failure here can't reach this function's
+             * catch block below.
+             */
+
+            initAdminOrdersTab(
+              user.uid,
+            );
+
+
+            /*
+             * Firestore profile.
+             */
+
+            showLoading(
+              "Loading your profile...",
+            );
+
+            const profile =
+              await withTimeout(
+                profileAPI.getProfile(),
+                15000,
+                "Your profile request timed out. Please check your Firebase connection and Firestore configuration.",
+              );
+
+
+            /*
+             * Populate the UI FIRST.
+             */
+
+            populateProfile(
+              profile,
+            );
+
+
+            /*
+             * THEN remove loading.
+             *
+             * This is the critical fix.
+             */
+
+            showContent();
+
+          } catch (error) {
+            showError(error);
+          }
+        }
+
+
+        /* =====================================================
+           ADMIN ORDERS TAB
+           ---------------------------------------------------
+           Hidden for every user until isAdminUser() confirms
+           this account is on the admins/{uid} Firestore
+           allow-list (see firebase-orders.js). Order data is
+           not fetched until the Orders tab is actually opened.
+           ===================================================== */
+
+        const profileTabs =
+          document.getElementById(
+            "profileTabs",
+          );
+
+        const tabBtnProfile =
+          document.getElementById(
+            "tabBtnProfile",
+          );
+
+        const tabBtnOrders =
+          document.getElementById(
+            "tabBtnOrders",
+          );
+
+        const tabPanelProfile =
+          document.getElementById(
+            "tabPanelProfile",
+          );
+
+        const tabPanelOrders =
+          document.getElementById(
+            "tabPanelOrders",
+          );
+
+        const kpiRevenue =
+          document.getElementById(
+            "kpiRevenue",
+          );
+
+        const kpiOrders =
+          document.getElementById(
+            "kpiOrders",
+          );
+
+        const kpiAov =
+          document.getElementById(
+            "kpiAov",
+          );
+
+        const kpiPending =
+          document.getElementById(
+            "kpiPending",
+          );
+
+        const revenueChartEl =
+          document.getElementById(
+            "revenueChart",
+          );
+
+        const ordersDashLoading =
+          document.getElementById(
+            "ordersDashLoading",
+          );
+
+        const ordersDashEmpty =
+          document.getElementById(
+            "ordersDashEmpty",
+          );
+
+        const ordersDashList =
+          document.getElementById(
+            "ordersDashList",
+          );
+
+        const ordersShowingCount =
+          document.getElementById(
+            "ordersShowingCount",
+          );
+
+        let ordersDashUnsubscribe =
+          null;
+
+        let ordersDashLoaded =
+          false;
+
+
+        /*
+         * Order data (item names/sizes, order IDs) ultimately
+         * comes from a customer's own cart in their browser's
+         * localStorage — nothing strips HTML from it before
+         * it reaches Firestore. Every piece of order data
+         * rendered below MUST go through this before being
+         * placed in innerHTML. Same reasoning as admin.html.
+         */
+
+        function escapeHtmlOrders(
+          value,
+        ) {
+          return String(value ?? "").replace(
+            /[&<>"']/g,
+            (ch) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[ch],
+          );
+        }
+
+
+        function money(n) {
+          return (
+            "Kes " +
+            Number(n).toLocaleString(
+              "en-KE",
+              { maximumFractionDigits: 0 },
+            )
+          );
+        }
+
+
+        function toMillis(value) {
+          if (!value) {
+            return null;
+          }
+
+          if (
+            typeof value.toMillis ===
+            "function"
+          ) {
+            return value.toMillis();
+          }
+
+          if (value instanceof Date) {
+            return value.getTime();
+          }
+
+          const n = Number(value);
+
+          return Number.isFinite(n)
+            ? n
+            : null;
+        }
+
+
+        function switchProfileTab(
+          tab,
+        ) {
+          const isOrders =
+            tab === "orders";
+
+          tabBtnProfile.classList.toggle(
+            "active",
+            !isOrders,
+          );
+
+          tabBtnOrders.classList.toggle(
+            "active",
+            isOrders,
+          );
+
+          tabBtnProfile.setAttribute(
+            "aria-selected",
+            String(!isOrders),
+          );
+
+          tabBtnOrders.setAttribute(
+            "aria-selected",
+            String(isOrders),
+          );
+
+          tabPanelProfile.hidden =
+            isOrders;
+
+          tabPanelOrders.hidden =
+            !isOrders;
+
+          if (
+            isOrders &&
+            !ordersDashLoaded
+          ) {
+            ordersDashLoaded = true;
+
+            watchOrdersDashboard();
+          }
+        }
+
+
+        tabBtnProfile.addEventListener(
+          "click",
+          () =>
+            switchProfileTab(
+              "profile",
+            ),
+        );
+
+        tabBtnOrders.addEventListener(
+          "click",
+          () =>
+            switchProfileTab(
+              "orders",
+            ),
+        );
+
+
+        function renderKpis(
+          orders,
+        ) {
+          const total =
+            orders.reduce(
+              (sum, o) =>
+                sum +
+                (Number(o.total) ||
+                  0),
+              0,
+            );
+
+          const count =
+            orders.length;
+
+          const aov = count
+            ? total / count
+            : 0;
+
+          const pending =
+            orders.filter(
+              (o) =>
+                o.status !==
+                "delivered",
+            ).length;
+
+          kpiRevenue.textContent =
+            money(total);
+
+          kpiOrders.textContent =
+            String(count);
+
+          kpiAov.textContent =
+            money(aov);
+
+          kpiPending.textContent =
+            String(pending);
+        }
+
+
+        function renderRevenueChart(
+          orders,
+        ) {
+          const days = 14;
+
+          const today = new Date();
+
+          today.setHours(
+            0,
+            0,
+            0,
+            0,
+          );
+
+          const buckets = [];
+
+          for (
+            let i = days - 1;
+            i >= 0;
+            i--
+          ) {
+            const d = new Date(
+              today,
+            );
+
+            d.setDate(
+              d.getDate() - i,
+            );
+
+            buckets.push({
+              date: d,
+              total: 0,
+            });
+          }
+
+          const dayMs =
+            24 * 60 * 60 * 1000;
+
+          const rangeStart =
+            buckets[0].date.getTime();
+
+          orders.forEach((o) => {
+            const ms = toMillis(
+              o.placedAt,
+            );
+
+            if (!ms) {
+              return;
+            }
+
+            const idx = Math.floor(
+              (ms - rangeStart) /
+                dayMs,
+            );
+
+            if (
+              idx >= 0 &&
+              idx < buckets.length
+            ) {
+              buckets[idx].total +=
+                Number(o.total) ||
+                0;
+            }
+          });
+
+          const max = Math.max(
+            1,
+            ...buckets.map(
+              (b) => b.total,
+            ),
+          );
+
+          revenueChartEl.innerHTML =
+            buckets
+              .map((b) => {
+                const heightPct =
+                  Math.max(
+                    2,
+                    Math.round(
+                      (b.total /
+                        max) *
+                        100,
+                    ),
+                  );
+
+                const label =
+                  b.date.toLocaleDateString(
+                    "en-KE",
+                    {
+                      day: "numeric",
+                      month: "short",
+                    },
+                  );
+
+                const title = `${label}: ${money(b.total)}`;
+
+                return `
+                  <div class="revenue-bar-col" title="${escapeHtmlOrders(title)}">
+                    <div class="revenue-bar" style="height:${heightPct}%"></div>
+                    <span class="revenue-bar-label">${escapeHtmlOrders(b.date.getDate())}</span>
+                  </div>
+                `;
+              })
+              .join("");
+        }
+
+
+        function renderOrdersDashList(
+          orders,
+        ) {
+          ordersShowingCount.textContent =
+            orders.length
+              ? `Showing ${orders.length}`
+              : "";
+
+          if (!orders.length) {
+            ordersDashList.innerHTML =
+              "";
+
+            ordersDashEmpty.hidden =
+              false;
+
+            ordersDashEmpty.textContent =
+              "No orders yet.";
+
+            return;
+          }
+
+          ordersDashEmpty.hidden =
+            true;
+
+          const stages =
+            window.SLOrders
+              .ORDER_STAGES;
+
+          ordersDashList.innerHTML =
+            orders
+              .map((o, index) => {
+                const placedStr =
+                  window.SLOrders.formatOrderDate(
+                    o.placedAt,
+                  ) || "—";
+
+                const updatedStr =
+                  window.SLOrders.formatOrderDate(
+                    o.updatedAt,
+                  );
+
+                const itemsStr = (
+                  o.items || []
+                )
+                  .map(
+                    (i) =>
+                      `${escapeHtmlOrders(i.name)}${i.size ? ` (Size ${escapeHtmlOrders(i.size)})` : ""} × ${escapeHtmlOrders(i.qty)}`,
+                  )
+                  .join(", ");
+
+                const optionsHtml =
+                  stages
+                    .map(
+                      (s) =>
+                        `<option value="${escapeHtmlOrders(s.key)}" ${o.status === s.key ? "selected" : ""}>${escapeHtmlOrders(s.label)}</option>`,
+                    )
+                    .join("");
+
+                const statusClass =
+                  "status-badge--" +
+                  escapeHtmlOrders(
+                    o.status,
+                  );
+
+                return `
+                  <div class="order-row" data-id="${escapeHtmlOrders(o.id)}" style="--sl-row-index:${index}">
+                    <div class="order-row-head">
+                      <div>
+                        <div class="order-row-id">${escapeHtmlOrders(o.id)}</div>
+                        <div class="order-row-date">Placed ${escapeHtmlOrders(placedStr)}</div>
+                      </div>
+                      <div class="order-row-total">${escapeHtmlOrders(money(o.total))}</div>
+                    </div>
+                    <div class="order-row-items">${itemsStr}</div>
+                    <div class="order-row-footer">
+                      <select class="order-status-select ${statusClass}" data-id="${escapeHtmlOrders(o.id)}" aria-label="Update status for order ${escapeHtmlOrders(o.id)}">
+                        ${optionsHtml}
+                      </select>
+                      <span class="order-row-updated">${updatedStr ? "Updated " + escapeHtmlOrders(updatedStr) : ""}</span>
+                    </div>
+                  </div>
+                `;
+              })
+              .join("");
+
+          ordersDashList
+            .querySelectorAll(
+              ".order-status-select",
+            )
+            .forEach((sel) => {
+              sel.addEventListener(
+                "change",
+                async () => {
+                  const id =
+                    sel.dataset.id;
+
+                  const newStatus =
+                    sel.value;
+
+                  sel.disabled =
+                    true;
+
+                  try {
+                    await window.SLOrders.updateOrderStatus(
+                      id,
+                      newStatus,
+                    );
+
+                    sel.className =
+                      "order-status-select status-badge--" +
+                      newStatus;
+                  } catch (err) {
+                    console.error(
+                      err,
+                    );
+
+                    alert(
+                      "Couldn't update that order's status — please try again.",
+                    );
+                  } finally {
+                    sel.disabled =
+                      false;
+                  }
+                },
+              );
+            });
+        }
+
+
+        function watchOrdersDashboard() {
+          if (
+            ordersDashUnsubscribe
+          ) {
+            ordersDashUnsubscribe();
+          }
+
+          ordersDashLoading.hidden =
+            false;
+
+          ordersDashEmpty.hidden =
+            true;
+
+          ordersDashUnsubscribe =
+            window.SLOrders.subscribeAllOrders(
+              (orders) => {
+                ordersDashLoading.hidden =
+                  true;
+
+                renderKpis(
+                  orders,
+                );
+
+                renderRevenueChart(
+                  orders,
+                );
+
+                renderOrdersDashList(
+                  orders,
+                );
+              },
+              (err) => {
+                console.error(
+                  "Orders subscription error:",
+                  err,
+                );
+
+                ordersDashLoading.hidden =
+                  true;
+
+                ordersDashEmpty.hidden =
+                  false;
+
+                ordersDashEmpty.textContent =
+                  "Couldn't load orders. Please try again.";
+              },
+              100,
+            );
+        }
+
+
+        function waitForOrdersEngine() {
+          return new Promise(
+            (resolve) => {
+              if (window.SLOrders) {
+                resolve(
+                  window.SLOrders,
+                );
+
+                return;
+              }
+
+              let finished = false;
+
+              const readyHandler =
+                () => finish(
+                  window.SLOrders,
+                );
+
+              const finish = (
+                api,
+              ) => {
+                if (finished) {
+                  return;
+                }
+
+                finished = true;
+
+                window.removeEventListener(
+                  "slorders:ready",
+                  readyHandler,
+                );
+
+                clearTimeout(
+                  timeoutId,
+                );
+
+                resolve(
+                  api || null,
+                );
+              };
+
+              window.addEventListener(
+                "slorders:ready",
+                readyHandler,
+              );
+
+              const timeoutId =
+                setTimeout(
+                  () =>
+                    finish(
+                      window.SLOrders,
+                    ),
+                  10000,
+                );
+            },
+          );
+        }
+
+
+        async function initAdminOrdersTab(
+          uid,
+        ) {
+          try {
+            const ordersAPI =
+              await waitForOrdersEngine();
+
+            if (
+              !ordersAPI ||
+              !ordersAPI.isConfigured ||
+              typeof ordersAPI.isAdminUser !==
+                "function"
+            ) {
+              return;
+            }
+
+            const isAdmin =
+              await ordersAPI.isAdminUser(
+                uid,
+              );
+
+            if (!isAdmin) {
+              return;
+            }
+
+            profileTabs.hidden =
+              false;
+
+            tabBtnOrders.hidden =
+              false;
+          } catch (err) {
+            console.warn(
+              "[SneakersLink] Admin orders tab check failed:",
+              err,
+            );
+          }
+        }
+
+
+        /* =====================================================
+           LIVE NAME UPDATE
+           ===================================================== */
+
+        displayNameInput.addEventListener(
+          "input",
+          () => {
+            const name =
+              displayNameInput.value.trim();
+
+            profileName.textContent =
+              name || "Profile";
+          },
+        );
+
+
+        /* =====================================================
+           FILE PICKER
+           ===================================================== */
+
+        function openFilePicker() {
+          if (
+            uploadInProgress
+          ) {
+            return;
+          }
+
+          avatarFileInput.click();
+        }
+
+
+        avatarEditButton.addEventListener(
+          "click",
+          openFilePicker,
+        );
+
+        changePhotoButton.addEventListener(
+          "click",
+          openFilePicker,
+        );
+
+
+        /* =====================================================
+           AVATAR UPLOAD
+           ===================================================== */
+
+        avatarFileInput.addEventListener(
+          "change",
+          async () => {
+            if (
+              uploadInProgress
+            ) {
+              return;
+            }
+
+            const file =
+              avatarFileInput.files?.[0];
+
+            if (!file) {
+              return;
+            }
+
+            uploadInProgress = true;
+
+            try {
+              if (
+                !file.type ||
+                !file.type.startsWith(
+                  "image/",
+                )
+              ) {
+                throw new Error(
+                  "Please select a valid image file.",
+                );
+              }
+
+              const maxSize =
+                5 * 1024 * 1024;
+
+              if (
+                file.size > maxSize
+              ) {
+                throw new Error(
+                  "Profile images must be smaller than 5 MB.",
+                );
+              }
+
+
+              setButtonLoading(
+                changePhotoButton,
+                true,
+                "Uploading...",
+              );
+
+              avatarEditButton.disabled =
+                true;
+
+              removePhotoButton.disabled =
+                true;
+
+
+              const downloadURL =
+                await withTimeout(
+                  window.SLProfile.uploadAvatar(
+                    file,
+                  ),
+                  30000,
+                  "Profile photo upload timed out. Please check your Firebase Storage configuration and try again.",
+                );
+
+
+              if (!downloadURL) {
+                throw new Error(
+                  "Firebase uploaded the image but did not return a download URL.",
+                );
+              }
+
+
+              setAvatar(
+                downloadURL,
+              );
+
+
+              if (currentProfile) {
+                currentProfile.photoURL =
+                  downloadURL;
+              }
+
+
+              showMessage(
+                "Profile photo updated successfully.",
+              );
+
+            } catch (error) {
+              console.error(
+                "Avatar upload error:",
+                error,
+              );
+
+              let errorMessage =
+                error?.message ||
+                "Unable to upload your profile photo.";
+
+
+              if (
+                error?.code ===
+                "storage/unauthorized"
+              ) {
+                errorMessage =
+                  "Photo upload was denied by Firebase Storage rules. Please check your Storage security rules.";
+              } else if (
+                error?.code ===
+                "storage/unauthenticated"
+              ) {
+                errorMessage =
+                  "Your Firebase session has expired. Please sign in again.";
+              } else if (
+                error?.code ===
+                "storage/quota-exceeded"
+              ) {
+                errorMessage =
+                  "Firebase Storage quota has been exceeded.";
+              } else if (
+                error?.code ===
+                "storage/canceled"
+              ) {
+                errorMessage =
+                  "The profile photo upload was canceled.";
+              }
+
+
+              showMessage(
+                errorMessage,
+                "error",
+              );
+
+            } finally {
+              uploadInProgress = false;
+
+              setButtonLoading(
+                changePhotoButton,
+                false,
+              );
+
+              avatarEditButton.disabled =
+                false;
+
+              removePhotoButton.disabled =
+                false;
+
+              avatarFileInput.value =
+                "";
+            }
+          },
+        );
+
+
+        /* =====================================================
+           REMOVE AVATAR
+           ===================================================== */
+
+        removePhotoButton.addEventListener(
+          "click",
+          async () => {
+            if (
+              uploadInProgress
+            ) {
+              return;
+            }
+
+            if (
+              !currentProfile ||
+              !currentProfile.photoURL
+            ) {
+              return;
+            }
+
+
+            const confirmed =
+              window.confirm(
+                "Remove your profile photo?",
+              );
+
+            if (!confirmed) {
+              return;
+            }
+
+
+            uploadInProgress = true;
+
+
+            try {
+              setButtonLoading(
+                removePhotoButton,
+                true,
+                "Removing...",
+              );
+
+              avatarEditButton.disabled =
+                true;
+
+              changePhotoButton.disabled =
+                true;
+
+
+              await withTimeout(
+                window.SLProfile.deleteAvatar(),
+                20000,
+                "Removing the profile photo timed out. Please try again.",
+              );
+
+
+              setAvatar("");
+
+              if (currentProfile) {
+                currentProfile.photoURL =
+                  "";
+              }
+
+
+              showMessage(
+                "Profile photo removed.",
+              );
+
+            } catch (error) {
+              console.error(
+                "Avatar removal error:",
+                error,
+              );
+
+              let errorMessage =
+                error?.message ||
+                "Unable to remove your profile photo.";
+
+
+              if (
+                error?.code ===
+                "storage/unauthorized"
+              ) {
+                errorMessage =
+                  "Photo removal was denied by Firebase Storage rules. Please check your Storage security rules.";
+              }
+
+
+              showMessage(
+                errorMessage,
+                "error",
+              );
+
+            } finally {
+              uploadInProgress = false;
+
+              setButtonLoading(
+                removePhotoButton,
+                false,
+              );
+
+              avatarEditButton.disabled =
+                false;
+
+              changePhotoButton.disabled =
+                false;
+            }
+          },
+        );
+
+
+        /* =====================================================
+           SAVE PROFILE
+           ===================================================== */
+
+        profileForm.addEventListener(
+          "submit",
+          async (event) => {
+            event.preventDefault();
+
+            try {
+              setButtonLoading(
+                saveButton,
+                true,
+                "Saving...",
+              );
+
+
+              const fields = {
+                displayName:
+                  displayNameInput.value,
+
+                phone:
+                  phoneInput.value,
+
+                address:
+                  addressInput.value,
+
+                city:
+                  cityInput.value,
+
+                postalCode:
+                  postalCodeInput.value,
+
+                country:
+                  countryInput.value,
+              };
+
+
+              const updatedProfile =
+                await withTimeout(
+                  window.SLProfile.updateProfile(
+                    fields,
+                  ),
+                  15000,
+                  "Saving your profile timed out. Please check your connection and try again.",
+                );
+
+
+              populateProfile(
+                updatedProfile,
+              );
+
+
+              showMessage(
+                "Your profile has been saved successfully.",
+              );
+
+            } catch (error) {
+              console.error(
+                "Profile update error:",
+                error,
+              );
+
+              showMessage(
+                error?.message ||
+                  "Unable to save your profile.",
+                "error",
+              );
+
+            } finally {
+              setButtonLoading(
+                saveButton,
+                false,
+              );
+            }
+          },
+        );
+
+
+        /* =====================================================
+           BACK BUTTON
+           ===================================================== */
+
+        backButton.addEventListener(
+          "click",
+          () => {
+            if (
+              window.history.length > 1
+            ) {
+              window.history.back();
+            } else {
+              window.location.href =
+                "index.html";
+            }
+          },
+        );
+
+
+        /* =====================================================
+           HEADER PROFILE BUTTON
+           ===================================================== */
+
+        headerProfileButton.addEventListener(
+          "click",
+          () => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          },
+        );
+
+
+        /* =====================================================
+           INITIALISE
+           ===================================================== */
+
+        loadProfile();
+
+      })();
+    </script>
+  </body>
+</html>
